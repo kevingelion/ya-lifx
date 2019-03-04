@@ -56,12 +56,14 @@ let requestHandler = function() {
               resolve(body);
             } else {
               reject({
+                statusCode: res.statusCode,
                 error: body.error,
                 warnings: body.warnings || {}
               });
             }
           } catch (e) {
             reject({
+              statusCode: res.statusCode,
               error: 'API failed',
               warnings: {}
             });
@@ -69,6 +71,7 @@ let requestHandler = function() {
         });
       } else {
         reject({
+          statusCode: 429,
           error: 'User request limit reached',
           warnings: {}
         });
